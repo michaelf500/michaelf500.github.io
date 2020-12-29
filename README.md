@@ -1,2 +1,3 @@
-# michaelf500.github.io
+# Random Locations in Newcastle
+
 Web page for me
