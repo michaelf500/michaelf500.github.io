@@ -12,16 +12,68 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
+	  <link rel="stylesheet" href="css/main.css"></link>
 
 	
 </head>
 <body>
+<div class="header">
 <h1> The Idea</h1>
-<p> During early 2020 I had the idea of choosing locations at random (using <a href="https://www.random.org/decimal-fractions">random.org</a> to generate longitude and latitude) within the general area of Newcastle upon Tyne, and then walking from my house to that location (give or take), and taking a photograph. The results are below. Click on the markers on the map to see the photos.</p>
-
+<p> During early 2020 I had the idea of choosing locations at random (using <a href="https://www.random.org/decimal-fractions">random.org</a> to generate longitude and latitude) within the general area of Newcastle upon Tyne, and then walking from my house to that location (give or take), and taking a photograph. The results are below. Click on the markers on the map to see the photos. Click on the photo to see a larger version.</p>
+</div>
+<div class="row">
+<div class="column">
 <h1> The Map</h1>
 
 <div id="mapid" style="width: 600px; height: 400px;"></div>
+</div>
+<!--
+see
+https://www.w3schools.com/Js/tryit.asp?filename=tryjs_intro_lightbulb
+-->
+<div class="column">
+<h1>The Photos</h1>
+<figure>
+<!--Note the figure tag, which gives more info-->
+   <img id="photo" src="./images/location_001.JPG" alt="Some Trees"
+   style="width:100%;max-width:400px">
+<figcaption id="phototext">Junction of Whitebridge Park and Swainby Close. 18/07/2020. </figcaption>
+</figure>
+</div>
+</div>
+<!--
+popup window from 
+https://www.w3schools.com/howto/howto_css_modal_images.asp
+-->
+
+<div id="myModal" class="modal" >
+<span class="close">&times;</span>
+<img class="modal-content" id="img01">
+<div id="caption"></div>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("photo");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+</script>
 <script>
 
 	var mymap = L.map('mapid').setView([55, -1.6], 12);
@@ -52,28 +104,6 @@ var marker13= L.marker([55.03180984484,-1.5952919066062]).addTo(mymap);
 var marker14= L.marker([54.964847744224,-1.543005969047]).addTo(mymap);
 var marker15= L.marker([54.975355244976,-1.6250246446572]).addTo(mymap);
 
-//		.bindPopup("<b>picture 1</b><br />I am a popup.").closePopup();
-//var popup = L.popup();
-//~ function onMapClick(e) {
-//~     popup
-//~         .setLatLng(e.latlng)
-//~         .setContent("You clicked the map at " )
-//~         .openOn(mymap); 
-//~     document.getElementById("demox").innerHTML="test";
-//~ }
-
-//~ function onMapClick11(e) {document.getElementById('photo').src='./images/'}
-//~ function onMapClick12(e) {document.getElementById('photo').src='./images/'}
-//~ function onMapClick13(e) {document.getElementById('photo').src='./images/DSC02566.JPG'}
-//~ function onMapClick14(e) {document.getElementById('photo').src='./images/sDSC02602.JPG'}
-//~ function onMapClick15(e) {
-//~ document.getElementById('photo').src='./images/sDSC02631.JPG'
-//~ }
-
-
-//function onMapClick001(e) {document.getElementById('photo').src='./images/location_001.JPG'}
-
-//function onMapClick15(e) {var tmp=document.getElementById('photo'); tmp.src='./images/sDSC02631.JPG'; tmp.alt="St James' Park";document.getElementById('phototext').textContent="St James' Park 2020-12-13 Latitude=54.9754; Longitude=-1.6250"}
 function onMapClick1(e) {var tmp=document.getElementById('photo'); tmp.src='./images/sDSC02451.JPG'; tmp.alt="Junction Whitebridge Park, Swainby Close";document.getElementById('phototext').textContent="Junction Whitebridge Park, Swainby Close 2020-07-18 Latitude=55.0199; Longitude=-1.6148"}
 function onMapClick2(e) {var tmp=document.getElementById('photo'); tmp.src='./images/sDSC02455.JPG'; tmp.alt="North End Raby Street (Byker)";document.getElementById('phototext').textContent="North End Raby Street (Byker) 2020-07-20 Latitude=54.9749; Longitude=-1.5793"}
 function onMapClick3(e) {var tmp=document.getElementById('photo'); tmp.src='./images/sDSC02462.JPG'; tmp.alt="Airport industrial estate";document.getElementById('phototext').textContent="Airport industrial estate 2020-08-02 Latitude=55.0121; Longitude=-1.6619"}
@@ -109,20 +139,8 @@ marker15.on('click', onMapClick15);
 //https://leafletjs.com/examples/video-overlay/
 
 </script>
-
-<!--
-see
-https://www.w3schools.com/Js/tryit.asp?filename=tryjs_intro_lightbulb
--->
-
-<h1>The Photos</h1>
-<figure>
-<!--Note the figure tag, which gives more info-->
-   <img id="photo" src="./images/location_001.JPG" alt="Some Trees">
-<figcaption id="phototext">Junction of Whitebridge Park and Swainby Close. 18/07/2020. </figcaption>
-</figure>
-</main>
 <footer>
+<hr>
 Michael Firbank 2020
 </footer>
 </body>
